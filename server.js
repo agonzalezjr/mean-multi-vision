@@ -32,6 +32,11 @@ app.use(stylus.middleware({
 // the file (for example favicon.ico)
 app.use(express.static(__dirname + '/public'));
 
+app.get('/partials/:partialPath', function(req, res) {
+  console.log(`> Got a request for partial at url:${req.url} at ${Date()}`)
+  res.render('partials/' + req.params.partialPath);
+});
+
 // commonly this uses '/' for home page (index)
 // but this '*' means everything that gets to the server gets the index page 
 // and the client side figures out the right page/view => No 404 errors though
