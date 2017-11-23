@@ -1,7 +1,8 @@
-var express = require('express');
-var stylus = require('stylus');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+var express = require('express'),
+  stylus = require('stylus'),
+  logger = require('morgan'),
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -31,6 +32,15 @@ app.use(stylus.middleware({
 // whenever there is a request that matches a file in public, just go ahead and serve
 // the file (for example favicon.ico)
 app.use(express.static(__dirname + '/public'));
+
+// To start mongo:
+// cd ~ && mongod -f data/mongod.conf
+mongoose.connect('mongodb://localhost/multivision');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error ... '));
+db.once('open', () => {
+  console.log('multivision db opened!');
+});
 
 app.get('/partials/:partialPath', function(req, res) {
   console.log(`> Got a request for partial at url:${req.url} at ${Date()}`)
