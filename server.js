@@ -4,6 +4,8 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
+
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
@@ -35,13 +37,15 @@ app.use(express.static(__dirname + '/public'));
 
 // To start mongo:
 // cd ~ && mongod -f data/mongod.conf
-mongoose.connect('mongodb://localhost/multivision');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error ... '));
-db.once('open', () => {
+mongoose.connect('mongodb://localhost/multivision', {
+  useMongoClient: true
+}).then(function(db) {
   console.log('multivision db opened!');
+}).catch(function(err) {
+  console.error(`connection error ... ${err}`);
 });
 
+// Should all this happen after the connect promise resolves??
 var messageSchema = mongoose.Schema({
   message: String
 });
