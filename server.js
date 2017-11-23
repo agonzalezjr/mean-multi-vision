@@ -42,6 +42,23 @@ db.once('open', () => {
   console.log('multivision db opened!');
 });
 
+var messageSchema = mongoose.Schema({
+  message: String
+});
+var Message = mongoose.model('Message', messageSchema);
+var mongoMessage;
+Message.findOne().exec(function(err, messageDoc) {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  if (messageDoc) {
+    mongoMessage = messageDoc.message;
+  } else {
+    mongoMessage = 'Nada!';
+  }
+});
+
 app.get('/partials/:partialPath', function(req, res) {
   console.log(`> Got a request for partial at url:${req.url} at ${Date()}`)
   res.render('partials/' + req.params.partialPath);
@@ -52,7 +69,9 @@ app.get('/partials/:partialPath', function(req, res) {
 // and the client side figures out the right page/view => No 404 errors though
 app.get('*', function(req, res) {
   console.log(`> Got a request for url:${req.url} at ${Date()}`)
-  res.render('index');
+  res.render('index', {
+    mongoMessage: mongoMessage
+  });
 }); 
 
 var port = 3030;
