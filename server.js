@@ -7,7 +7,7 @@ var express = require('express'),
 mongoose.Promise = global.Promise;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
+ 
 var app = express();
 
 function compile(str, path) {
@@ -35,12 +35,22 @@ app.use(stylus.middleware({
 // the file (for example favicon.ico)
 app.use(express.static(__dirname + '/public'));
 
-// To start mongo:
+
+// To start mongo (locally):
 // cd ~ && mongod -f data/mongod.conf
-mongoose.connect('mongodb://localhost/multivision', {
+
+// To start in production:
+// NODE_ENV=production nodemon server.js
+
+let dbConn = 'mongodb://andy:multivision@ds119406.mlab.com:19406/multivision_agjr';
+if (env === 'development') {
+  dbConn = 'mongodb://localhost/multivision';
+}
+
+mongoose.connect(dbConn, {
   useMongoClient: true
 }).then(function(db) {
-  console.log('multivision db opened!');
+  console.log(`multivision db opened! (${dbConn})`);
 }).catch(function(err) {
   console.error(`connection error ... ${err}`);
 });
@@ -78,7 +88,7 @@ app.get('*', function(req, res) {
   });
 }); 
 
-var port = 3030;
+var port = process.env.PORT || 3030;
 app.listen(port);
 
 console.log(`Listening on port ${port} ...`);
