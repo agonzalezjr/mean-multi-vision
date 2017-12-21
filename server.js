@@ -11,7 +11,7 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var app = express();
 
 function compile(str, path) {
-  return stylus(str).set('filename', paht);
+  return stylus(str).set('filename', path);
 }
 
 app.set('views', __dirname + '/server/views');
@@ -25,6 +25,8 @@ app.use(logger('dev'));
 // to enable parsing url and json encoded bodies
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+console.log(`*** dn = ${__dirname}`);
 
 app.use(stylus.middleware({
   src: __dirname + '/public',
