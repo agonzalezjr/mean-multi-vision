@@ -35,13 +35,6 @@ app.use(stylus.middleware({
 // the file (for example favicon.ico)
 app.use(express.static(__dirname + '/public'));
 
-
-// To start mongo (locally):
-// cd ~ && mongod -f data/mongod.conf
-
-// To start in production:
-// NODE_ENV=production nodemon server.js
-
 let dbConn = 'mongodb://andy:multivision@ds119406.mlab.com:19406/multivision_agjr';
 if (env === 'development') {
   dbConn = 'mongodb://localhost/multivision';
