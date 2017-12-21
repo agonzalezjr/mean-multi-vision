@@ -39,3 +39,10 @@ and connect to http://localhost:3030/
 ## Deploying changes
 
 Just push to GH :smile:
+
+
+---
+
+<p align="center">
+Made with :heart: in Miami Beach <br/>
+</p>
