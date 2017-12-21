@@ -38,7 +38,9 @@ and connect to http://localhost:3030/
 
 ## Deploying changes
 
-Just push to GH :smile:
+Just push to GH :smile: 
+
+Site is running at https://protected-dusk-56199.herokuapp.com
 
 
 ---
