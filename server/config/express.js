@@ -24,7 +24,11 @@ module.exports = function(app, config) {
 
   app.use(cookieParser());
   app.use(bodyParser());
-  app.use(session({secret: 'multi vision unicorns'}));
+  app.use(session({
+    secret: 'multi vision unicorns',
+    resave: false,
+    saveUninitialized: false,
+  }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(stylus.middleware(
