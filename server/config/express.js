@@ -19,11 +19,13 @@ module.exports = function(app, config) {
   app.use(logger('dev'));
 
   // to enable parsing url and json encoded bodies
-  app.use(bodyParser.urlencoded({extended: true}));
+  // app.use(bodyParser()); --> Deprecated!
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
   app.use(bodyParser.json());
 
   app.use(cookieParser());
-  app.use(bodyParser());
   app.use(session({
     secret: 'multi vision unicorns',
     resave: false,
