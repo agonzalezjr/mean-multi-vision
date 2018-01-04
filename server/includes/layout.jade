@@ -11,5 +11,9 @@ html
     link(rel="stylesheet", href="/css/site.css")
 
   body(ng-app='app')
+    //- This bootstraps data to send to the client in case
+    //- there is a refresh after logging in, the current user
+    //- is sent back up ...
+    include currentUser
     block main-content
     include scripts
