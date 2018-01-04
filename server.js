@@ -50,9 +50,9 @@ mongoose.connect(dbConn, {
   console.error(`connection error ... ${err}`);
 });
 
-app.get('/partials/:partialPath', function(req, res) {
-  console.log(`> Got a request for partial at url:${req.url} at ${Date()}`)
-  res.render('partials/' + req.params.partialPath);
+app.get('/partials/*', function(req, res) {
+  console.log(`> Got a request for partial at url:${req.url} at ${Date()}`);
+  res.render('../../public/app/' + req.params[0]);
 });
 
 // commonly this uses '/' for home page (index)
