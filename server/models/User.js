@@ -1,6 +1,8 @@
 var mongoose = require('mongoose'),
     encrypt = require('../utilities/encryption');
 
+// All validation in the server!! Always!!
+
 var userSchema = mongoose.Schema({
   firstName: {type:String, required:'{PATH} is required!'},
   lastName: {type:String, required:'{PATH} is required!'},
