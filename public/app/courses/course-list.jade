@@ -11,6 +11,7 @@
         th Title
         th Publish Date
     tbody
+      //- This is awesome: 100% angular black magic fuckery :: 0% code.
       tr(ng-repeat="course in courses | filter:searchText | orderBy:sortOrder")
         td
           a(href="/courses/{{course._id}}") {{course.title}}
